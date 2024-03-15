@@ -1,0 +1,47 @@
+﻿<Window x:Class="Pr2_Danylov.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Person Details" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="First Name:"/>
+        <TextBox Grid.Row="0" x:Name="txtFirstName" Margin="120,0,0,0" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="1" Content="Last Name:"/>
+        <TextBox Grid.Row="1" x:Name="txtLastName" Margin="120,0,0,0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="2" Content="Email Address:"/>
+        <TextBox Grid.Row="2" x:Name="txtEmailAddress" Margin="120,0,0,0" Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="3" Content="Date of Birth:"/>
+        <DatePicker Grid.Row="3" x:Name="dpBirthDate" Margin="120,0,0,0" SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+
+        <Button Grid.Row="4" Content="Proceed" Click="Proceed_Click" Margin="120,10,0,0" IsEnabled="False" x:Name="btnProceed"/>
+
+        <Label Grid.Row="5" Content="Is Adult:"/>
+        <TextBlock Grid.Row="5" x:Name="txtIsAdult" Margin="120,0,0,0" Text="{Binding IsAdult}"/>
+
+        <Label Grid.Row="6" Content="Sun Sign:"/>
+        <TextBlock Grid.Row="6" x:Name="txtSunSign" Margin="120,0,0,0" Text="{Binding SunSign}"/>
+
+        <Label Grid.Row="7" Content="Chinese Sign:"/>
+        <TextBlock Grid.Row="7" x:Name="txtChineseSign" Margin="120,0,0,0" Text="{Binding ChineseSign}"/>
+
+        <Label Grid.Row="8" Content="Is Birthday:"/>
+        <TextBlock Grid.Row="8" x:Name="txtIsBirthday" Margin="120,0,0,0" Text="{Binding IsBirthday}"/>
+
+        <Label Grid.Row="9" Content="Birthday Message:"/>
+        <TextBlock Grid.Row="9" x:Name="txtBirthdayMessage" Margin="120,0,0,0" Text="{Binding BirthdayMessage}"/>
+    </Grid>
+</Window>
