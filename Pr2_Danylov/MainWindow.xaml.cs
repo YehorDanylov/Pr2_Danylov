@@ -128,9 +128,25 @@ namespace Pr2_Danylov
 
             await Task.Run(() =>
             {
-                CalculateAge();
-                CalculateZodiacSigns();
-                CheckBirthday();
+                try
+                {
+                    CalculateAge();
+                    CalculateZodiacSigns();
+                    CheckBirthday();
+                    ValidateEmail();
+                }
+                catch (FutureBirthDateException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (AncientBirthDateException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (InvalidEmailException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             });
 
 
@@ -160,10 +176,13 @@ namespace Pr2_Danylov
 
         private void CalculateAge()
         {
-            if (BirthDate > DateTime.Now || BirthDate.Year < DateTime.Now.Year - 135)
+            if (BirthDate > DateTime.Now)
             {
-                MessageBox.Show("Please enter a valid birth date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                throw new FutureBirthDateException("Invalid birth date: cannot be in the future.");
+            }
+            else if (BirthDate.Year < DateTime.Now.Year - 135)
+            {
+                throw new AncientBirthDateException("Invalid birth date: too far in the past.");
             }
 
             DateTime now = DateTime.Now;
@@ -195,6 +214,27 @@ namespace Pr2_Danylov
             }
         }
 
+        private void ValidateEmail()
+        {
+            if (!IsValidEmail(EmailAddress))
+            {
+                throw new InvalidEmailException("Invalid email address format.");
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void UpdateProceedButtonState()
         {
             btnProceed.IsEnabled = !string.IsNullOrWhiteSpace(FirstName) &&
@@ -208,6 +248,27 @@ namespace Pr2_Danylov
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class FutureBirthDateException : Exception
+    {
+        public FutureBirthDateException(string message) : base(message)
+        {
+        }
+    }
+
+    public class AncientBirthDateException : Exception
+    {
+        public AncientBirthDateException(string message) : base(message)
+        {
+        }
+    }
+
+    public class InvalidEmailException : Exception
+    {
+        public InvalidEmailException(string message) : base(message)
+        {
         }
     }
 }

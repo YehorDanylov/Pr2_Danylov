@@ -27,7 +27,7 @@
         <Label Grid.Row="3" Content="Date of Birth:"/>
         <DatePicker Grid.Row="3" x:Name="dpBirthDate" Margin="120,0,0,0" SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
-        <Button Grid.Row="4" Content="Proceed" Click="Proceed_Click" Margin="120,10,0,0" IsEnabled="False" x:Name="btnProceed"/>
+        <Button Grid.Row="4" x:Name="btnProceed" Content="Proceed" Click="Proceed_Click" Margin="120,10,0,0" IsEnabled="{Binding ProceedButtonEnabled}"/>
 
         <Label Grid.Row="5" Content="Is Adult:"/>
         <TextBlock Grid.Row="5" x:Name="txtIsAdult" Margin="120,0,0,0" Text="{Binding IsAdult}"/>
